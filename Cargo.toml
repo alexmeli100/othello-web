@@ -2,6 +2,9 @@
 name = "othello-web"
 version = "0.1.0"
 authors = ["Alex Meli <alexmeli100@gmail.com>"]
+description = "A simple game of Othello built in WebAssembply (Rust)"
+repository = "git+https://github.com/alexmeli100/othello-web.git"
+license = "MIT"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
