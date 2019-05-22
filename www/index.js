@@ -9,8 +9,24 @@ const cellsPtr = board.cells();
 const cells = new Uint8Array(memory.buffer, cellsPtr, 100);
 
 class App extends Component{
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    const b = document.querySelector('.board');
+
+    b.addEventListener('click', this.handleClick);
+  }
+
+  handleClick(e) {
+    console.log(`clicked square ${e.target.id}`);
+  }
+
   render() {
-     return <GameBoard cells={cells}/>;
+     return <GameBoard cells={cells} />;
   }
 }
 
