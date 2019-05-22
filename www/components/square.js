@@ -8,27 +8,23 @@ class Square extends Component {
     this.id = props.id;
   }
 
-  /**
-   * DQ:
-   * The type of the square is handled within `render`.
-   */
-  // renderSquare(v) {
-  //   switch(v) {
-  //     case 1:
-  //       return 1;
-  //     case 0:
-  //       return 0;
-  //     default:
-  //       return "";
-  //   }
-  // }
+  display_id(id) {
+    const chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+
+    if (id === 0 || id === 90) {
+      return undefined;
+    }
+
+    if (id % 10 === 0)
+      return <div>{Math.floor(id / 10)}</div>
+
+      if (id > 90) {
+        return <div>{chars[id-91]}</div>
+    }
+}
+
 
   render() {
-    /**
-     * DQ:
-     * Suggest using BEM-style CSS names for clarity and organization.
-     * See http://getbem.com/naming/
-     */
     let cn = 'square';
     if (this.type === 3) {
       cn += ' square--edge';
@@ -43,7 +39,8 @@ class Square extends Component {
     }
 
     return (
-      <div className={cn}>
+      <div className={cn} >
+        {this.display_id(this.id)}
         <div className={pn} />
       </div>
     );
