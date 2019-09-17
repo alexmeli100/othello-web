@@ -6,22 +6,8 @@ class Square extends Component {
 
     this.type = props.type;
     this.id = props.id;
+    this.squareClick = props.squareClick;
   }
-
-  /**
-   * DQ:
-   * The type of the square is handled within `render`.
-   */
-  // renderSquare(v) {
-  //   switch(v) {
-  //     case 1:
-  //       return 1;
-  //     case 0:
-  //       return 0;
-  //     default:
-  //       return "";
-  //   }
-  // }
 
   render() {
     /**
@@ -43,7 +29,7 @@ class Square extends Component {
     }
 
     return (
-      <div className={cn}>
+      <div className={cn} onClick={this.squareClick}>
         <div className={pn} />
       </div>
     );
