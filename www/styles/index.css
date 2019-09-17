@@ -19,7 +19,7 @@ body {
   grid-gap: 1px;
 }
 
-.square {
+.cell {
   width: 100%;
   height: 100%;
   display: inline-flex;
@@ -28,7 +28,7 @@ body {
   background-color: #769656;
 }
 
-.square--edge {
+.cell--edge {
   background-color: #888;
 }
 

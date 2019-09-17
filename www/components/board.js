@@ -1,17 +1,16 @@
 import { memory } from "../../pkg/othello_web_bg";
-import { Board, Piece }  from "../../pkg/othello_web";
+import { Piece }  from "../../pkg/othello_web";
 import React, { Component } from 'react';
-import { hot } from 'react-hot-loader';
-import Square from './square';
 
 class GameBoard extends Component {
 
   constructor(props) {
     super(props);
     this.board = props.board;
+    this.takeTurn = props.takeTurn;
+    this.turn = props.turn;
     this.state = {
       cells: new Uint8Array(memory.buffer, this.board.cells(), 100),
-      turn: Piece.BLACK
     }
   }
 
@@ -23,11 +22,12 @@ class GameBoard extends Component {
    */
   onSquareClick(cellId) {
     console.log(cellId);
-    this.board.make_move(cellId, this.state.turn);
+    this.board.make_move(cellId, this.turn);
     this.setState({
       cells: new Uint8Array(memory.buffer, this.board.cells(), 100),
-      turn: this.state.turn === Piece.BLACK ? Piece.WHITE : Piece.BLACK,
+      // turn: this.state.turn === Piece.BLACK ? Piece.WHITE : Piece.BLACK,
     });
+    this.takeTurn();
   }
 
   /**
@@ -37,28 +37,30 @@ class GameBoard extends Component {
     const cells = Array.from(this.state.cells);
 
     return (
-      cells.map((cell, index) => {
-        let cn = 'square';
-        if (cell === 3) {
-          cn += ' square--edge';
-        }
+      <div className="board">
+        {cells.map((cell, index) => {
+          let cn = 'cell';
+          if (cell === 3) {
+            cn += ' cell--edge';
+          }
 
-        let pn = 'piece';
-        if (cell === 0) {
-          pn += ' piece--black';
-        }
-        if (cell === 1) {
-          pn += ' piece--white';
-        }
+          let pn = 'piece';
+          if (cell === 0) {
+            pn += ' piece--black';
+          }
+          if (cell === 1) {
+            pn += ' piece--white';
+          }
 
-        return (
-          <div className={cn} onClick={this.onSquareClick.bind(this, index)}>
-            <div className={pn} />
-          </div>
-        )
-      })
+          return (
+            <div key={index} className={cn} onClick={this.onSquareClick.bind(this, index)}>
+              <div className={pn} />
+            </div>
+          )
+        })}
+      </div>
     )
   }
 }
 
-export default hot(module)(GameBoard);
+export default GameBoard;
