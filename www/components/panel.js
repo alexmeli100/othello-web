@@ -5,12 +5,13 @@ class InfoPanel extends Component {
 
   constructor(props) {
     super(props);
-    this.turn = props.turn;
   }
 
   render() {
+    const { turn } = this.props;
+
     return (
-      <div className="info">{this.turn === Piece.BLACK ? 'Black' : 'White'}</div>
+      <div className="info">{turn === Piece.BLACK ? 'Black' : 'White'}</div>
     );
   }
 }

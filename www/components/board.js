@@ -1,5 +1,4 @@
 import { memory } from "../../pkg/othello_web_bg";
-import { Piece }  from "../../pkg/othello_web";
 import React, { Component } from 'react';
 
 class GameBoard extends Component {
@@ -8,7 +7,6 @@ class GameBoard extends Component {
     super(props);
     this.board = props.board;
     this.takeTurn = props.takeTurn;
-    this.turn = props.turn;
     this.state = {
       cells: new Uint8Array(memory.buffer, this.board.cells(), 100),
     }
@@ -22,10 +20,9 @@ class GameBoard extends Component {
    */
   onSquareClick(cellId) {
     console.log(cellId);
-    this.board.make_move(cellId, this.turn);
+    this.board.make_move(cellId, this.props.turn);
     this.setState({
       cells: new Uint8Array(memory.buffer, this.board.cells(), 100),
-      // turn: this.state.turn === Piece.BLACK ? Piece.WHITE : Piece.BLACK,
     });
     this.takeTurn();
   }
