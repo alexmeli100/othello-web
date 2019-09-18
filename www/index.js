@@ -24,12 +24,10 @@ class Game extends Component {
 
   render() {
     const { turn } = this.state;
-    return (
-      <div>
-        <GameBoard board={board} turn={turn} takeTurn={this.takeTurn.bind(this)} />
-        <InfoPanel turn={turn} />
-      </div>
-    )
+    return ([
+      <GameBoard board={board} turn={turn} takeTurn={this.takeTurn.bind(this)} />,
+      <InfoPanel turn={turn} />
+    ])
   }
 }
 

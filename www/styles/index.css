@@ -9,6 +9,31 @@ body {
   margin: 0;
 }
 
+.game {
+  display: flex;
+
+}
+
+.info {
+  background-color: #888;
+  border-radius: 4px;
+  margin-left: 16px;
+  padding: 8px;
+}
+
+.info-section {
+  padding: 8px 16px;
+}
+
+.info-section__title { 
+  font-size: 130%;
+  font-weight: bold;
+}
+
+.info-section__content {
+  text-align: center;
+}
+
 .board {
   width: 50vw;
   height: 50vw;

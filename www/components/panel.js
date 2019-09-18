@@ -8,10 +8,19 @@ class InfoPanel extends Component {
   }
 
   render() {
-    const { turn } = this.props;
+    const { turn, count } = this.props;
 
     return (
-      <div className="info">{turn === Piece.BLACK ? 'Black' : 'White'}</div>
+      <div className="info">
+        <div className="info-section">
+          <div className="info-section__title">
+            Current turn:
+          </div>
+          <div className="info-section__content">
+            {turn === Piece.BLACK ? 'Black' : 'White'}
+          </div>
+        </div>
+      </div>
     );
   }
 }
