@@ -133,11 +133,17 @@ impl Board {
   pub fn render(&self) -> String {
     self.to_string()
   }
-}
 
-impl Board {
+  // check if move is legal
+  // legal moves must be into an empty square and it must flip
+  // at least one opponent piece
+  pub fn legal_move(&self, player: Piece, m: usize) -> bool {
+    self.get_piece(m) != player && DIRECTIONS.iter() 
+      .any(|dir| self.would_flip(m, player, *dir) != None)
+  }
+
   // check if player has any legal moves
-  fn any_move(&self, player: Piece) -> bool {
+  pub fn any_move(&self, player: Piece) -> bool {
     (11..89)
       .filter(|n| {
         let x = n % 10;
@@ -146,6 +152,13 @@ impl Board {
       .any(|m| self.legal_move(player, m))
   } 
 
+  pub fn valid_move(m: usize) -> bool {
+    let x= m % 10;
+    (m >= 11 && m <= 88) && (x >= 1 && x <= 8)
+  }
+}
+
+impl Board {
    // find player to play next or None if nobody can move
   pub fn next_turn(&self, previous: Piece) -> Option<Piece> {
     let opponent = previous.opponent();
@@ -182,14 +195,6 @@ impl Board {
       None
     }    
   }
-
-  // check if move is legal
-  // legal moves must be into an empty square and it must flip
-  // at least one opponent piece
-  fn legal_move(&self, player: Piece, m: usize) -> bool {
-    self.get_piece(m) != player && DIRECTIONS.iter() 
-      .any(|dir| self.would_flip(m, player, *dir) != None)
-  }
 }
 
 impl fmt::Display for Board {
@@ -204,10 +209,3 @@ impl fmt::Display for Board {
     Ok(())
   }
 }
-
-fn valid_move(m: usize) -> bool {
-  let x= m % 10;
-  (m >= 11 && m <= 88) && (x >= 1 && x <= 8)
-}
-
-

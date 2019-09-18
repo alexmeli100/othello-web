@@ -13,15 +13,12 @@ class Game extends Component {
 
     this.board = Board.new();
 
-    const cells = new Uint8Array(memory.buffer, this.board.cells(), 100);
-    const count = {
-      white: cells.filter(val => val === Piece.WHITE).length,
-      black: cells.filter(val => val === Piece.BLACK).length
-    }
-
     this.state = {
-      cells: cells,
-      count: count,
+      cells: new Uint8Array(memory.buffer, this.board.cells(), 100),
+      count: {
+        white: this.board.count_piece(Piece.WHITE),
+        black: this.board.count_piece(Piece.BLACK)
+      },
       turn: Piece.BLACK
     }
   }
@@ -33,21 +30,24 @@ class Game extends Component {
    * @param {number} cellId The `id` of the clicked cell.
    */
   takeTurn(cellId) {
-    // Perform player move
-    this.board.make_move(cellId, this.state.turn);
+    const { board } = this;
+    const { turn } = this.state;
 
-    // Update cells and turn.
-    const cells = new Uint8Array(memory.buffer, this.board.cells(), 100);
-    const count = {
-      white: cells.filter(val => val === Piece.WHITE).length,
-      black: cells.filter(val => val === Piece.BLACK).length
+    if (Board.valid_move(cellId) && board.legal_move(turn, cellId)) {
+      // Perform player move
+      board.make_move(cellId, this.state.turn);
+
+      // Update cells and turn.
+      this.setState({
+        cells: new Uint8Array(memory.buffer, this.board.cells(), 100),
+        count: {
+          white: this.board.count_piece(Piece.WHITE),
+          black: this.board.count_piece(Piece.BLACK)
+        },
+        turn: this.state.turn === Piece.BLACK ? Piece.WHITE : Piece.BLACK,
+      });
+    } else {
     }
-
-    this.setState({
-      cells: cells,
-      count: count,
-      turn: this.state.turn === Piece.BLACK ? Piece.WHITE : Piece.BLACK,
-    });
   }
 
   render() {
