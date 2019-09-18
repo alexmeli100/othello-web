@@ -19,7 +19,6 @@ class GameBoard extends Component {
    * @param {number} cellId The `id` of the clicked cell.
    */
   onSquareClick(cellId) {
-    console.log(cellId);
     this.board.make_move(cellId, this.props.turn);
     this.setState({
       cells: new Uint8Array(memory.buffer, this.board.cells(), 100),
