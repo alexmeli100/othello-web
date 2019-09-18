@@ -1,15 +1,11 @@
-import { memory } from "../../pkg/othello_web_bg";
+
 import React, { Component } from 'react';
 
 class GameBoard extends Component {
 
   constructor(props) {
     super(props);
-    this.board = props.board;
     this.takeTurn = props.takeTurn;
-    this.state = {
-      cells: new Uint8Array(memory.buffer, this.board.cells(), 100),
-    }
   }
 
   /**
@@ -19,18 +15,14 @@ class GameBoard extends Component {
    * @param {number} cellId The `id` of the clicked cell.
    */
   onSquareClick(cellId) {
-    this.board.make_move(cellId, this.props.turn);
-    this.setState({
-      cells: new Uint8Array(memory.buffer, this.board.cells(), 100),
-    });
-    this.takeTurn();
+    this.takeTurn(cellId);
   }
 
   /**
    * Render the board.
    */
   render() {
-    const cells = Array.from(this.state.cells);
+    const cells = Array.from(this.props.cells);
 
     return (
       <div className="board">

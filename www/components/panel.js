@@ -20,6 +20,14 @@ class InfoPanel extends Component {
             {turn === Piece.BLACK ? 'Black' : 'White'}
           </div>
         </div>
+        <div className="info-section">
+          <div className="info-section__title">
+            Score:
+          </div>
+          <div className="info-section__content">
+            W {count.white} - B {count.black}
+          </div>
+        </div>
       </div>
     );
   }
